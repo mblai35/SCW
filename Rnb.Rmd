@@ -1,0 +1,101 @@
+---
+title: "R Notebook"
+output:
+  html_notebook: default
+---
+# Header
+
+__*Purpose:*__ The purpose of this R Notebook is to provide an introduction to the basic functionality of R Notebooks. 
+
+__*Topics Covered:*__  
+
+1. Basic formatting
+    + _Italics_
+    + **Bold**
+    + Lists
+        * Ordered Lists
+        * Bulleted Lists
+    + Headers  
+2. Intermediate Formatting
+    + Inline code
+        + Inline R code
+        + Inline Latex
+        + Inline equations
+    + Block quotes    
+    + Tables
+    + Pictures
+3. R chunks
+    + Suppressing messages
+    + Plotting
+4. Advanced 
+    + Html widgets
+
+>When in doubt, Google. Look for R Markdown and LaTeX cheat sheets. 
+
+#### Intermediate Formatting
+
+Using the equation for the area of a circle, $A = \pi r^{2}$, we calculated the area to be `r round(pi*3^2, 1) ` $m^{2}$.  
+
+&nbsp;
+
+$\frac{1.5 mmol_{H_2O}}{m^{2}s} \times \frac{1mol}{10^{3}mmol}$ = `r 1.5/(10^3)` $\frac{mol_{H_2O}}{m^{2}s}$  
+
+Centered equations: 
+
+\[ \frac{\partial \phi}{\partial t}
+   = 2 \left( \frac{\partial^2 \phi}{\partial x^2}
+      + \frac{\partial^2 \phi}{\partial y^2}\right)
+      -g(\phi)
+\]
+
+\[
+\int_{\Omega_{e_{i}}}\int \left( [N]^T\frac{\partial \phi}{\partial t}-[N]^T2\nabla\cdot\nabla\phi+ [N]^T g(\phi) \right) dxdy
+\]
+
+###### Table 1. 
+Variable  | Value
+------------- | -------------
+$\bar{x}$  | $`r round(mean(rnorm(100)) * 2400000000, 2)`$
+$\hat{p}$  | `r round(sd(rnorm(100)), 1) `
+$\heartsuit$ | $\infty$
+
+###### Figure 1. 
+  ![SCW logo created by $Marie \, Agn\acute{e}s-Tellier$. ](/Users/mblai/Documents/Classes/SCW/LOGO.png)
+
+#### R chunks
+
+```{r, message = F, warning=F, echo=F}
+# message = F; suppress package loading messages
+# warning = F; suppress warning messages
+# echo = F; suppress code chunk
+library(markovchain)
+library(igraph)
+library(knitr)
+```
+
+```{r}
+data(cars)
+plot(cars$dist, cars$speed)
+boxplot(cars)
+hist(cars$speed, breaks = 10)
+```
+
+Notice that R split the original code chunk in Preview and that multiple plots in one chunk can be viewed one-by-one by clicking on the icons.
+
+#### Advanced
+
+Html widgets can be incorporated into your R Notebook. For examples of  widgets, see http://www.htmlwidgets.org/showcase_leaflet.html. 
+
+```{r}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+```{r}
+library(metricsgraphics)
+mjs_plot(mtcars, x=wt, y=mpg) %>%
+  mjs_point(color_accessor=carb, size_accessor=carb) %>%
+  mjs_labs(x="Weight of Car", y="Miles per Gallon")
+```
+
